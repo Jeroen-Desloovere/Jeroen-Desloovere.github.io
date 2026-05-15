@@ -494,7 +494,7 @@ p:last-child { margin-bottom: 0; }
 /* Timeline */
 .timeline {
   position: relative;
-  max-width: 700px;
+  max-width: 760px;
   margin: 3rem auto 0;
 }
 
@@ -502,7 +502,8 @@ p:last-child { margin-bottom: 0; }
   content: '';
   position: absolute;
   left: 50%;
-  top: 0; bottom: 0;
+  top: 0;
+  bottom: 0;
   width: 1px;
   background: var(--divider);
   transform: translateX(-50%);
@@ -510,17 +511,21 @@ p:last-child { margin-bottom: 0; }
 
 .timeline-item {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr);
-  gap: 1rem;
-  margin-bottom: 2.5rem;
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr);
+  column-gap: 1.4rem;
+  margin-bottom: 3rem;
   position: relative;
+  align-items: start;
+}
+
+/* Keep the linked title, dot and time locked to the same row. */
+.timeline-time,
+.timeline-dot,
+.timeline-body {
+  grid-row: 1;
 }
 
 .timeline-time {
-  grid-column: 1;
-  justify-self: end;
-  text-align: right;
   font-family: var(--font-serif);
   font-size: 0.74rem;
   letter-spacing: 0.12em;
@@ -530,40 +535,53 @@ p:last-child { margin-bottom: 0; }
   padding: 0.18rem 0.45rem;
   background: rgba(253, 246, 238, 0.5);
   border: 1px solid rgba(201, 169, 110, 0.35);
-  flex-shrink: 0;
   line-height: 1.2;
+  align-self: start;
   margin-top: 0;
 }
 
 .timeline-dot {
   grid-column: 2;
   justify-self: center;
-  margin-top: 0.35rem;
+  align-self: start;
   width: 9px;
   height: 9px;
   border-radius: 50%;
   background: var(--pomegranate);
   border: 2px solid var(--cream);
   box-shadow: 0 0 0 1px var(--pomegranate);
+  margin-top: 0.34rem;
 }
 
 .timeline-body {
-  grid-column: 3;
-  max-width: 260px;
-  text-align: left;
+  max-width: 270px;
+  align-self: start;
   padding-top: 0;
+  margin-top: 0;
 }
 
-.timeline-item:nth-child(odd) .timeline-time {
+.timeline-item--left .timeline-body {
+  grid-column: 1;
+  justify-self: end;
+  text-align: right;
+}
+
+.timeline-item--left .timeline-time {
   grid-column: 3;
   justify-self: start;
   text-align: left;
 }
 
-.timeline-item:nth-child(odd) .timeline-body {
+.timeline-item--right .timeline-time {
   grid-column: 1;
   justify-self: end;
   text-align: right;
+}
+
+.timeline-item--right .timeline-body {
+  grid-column: 3;
+  justify-self: start;
+  text-align: left;
 }
 
 .timeline-event {
@@ -579,6 +597,7 @@ p:last-child { margin-bottom: 0; }
   font-size: 0.88rem;
   color: var(--text-muted);
   margin: 0;
+  line-height: 1.65;
 }
 
 /* ============================================================
@@ -1030,26 +1049,32 @@ textarea.form-control {
   .timeline { max-width: 500px; }
   .timeline::before { left: 14px; transform: none; }
   .timeline-item,
-  .timeline-item:nth-child(odd) {
+  .timeline-item--left,
+  .timeline-item--right {
     grid-template-columns: 32px minmax(0, 1fr);
-    gap: 0.4rem 0.75rem;
+    column-gap: 0.75rem;
+    row-gap: 0.35rem;
+    margin-bottom: 2.25rem;
     text-align: left;
   }
   .timeline-dot {
     grid-column: 1;
     grid-row: 1 / span 2;
     justify-self: center;
-    margin-top: 0.35rem;
+    margin-top: 0.34rem;
   }
   .timeline-time,
-  .timeline-item:nth-child(odd) .timeline-time {
+  .timeline-item--left .timeline-time,
+  .timeline-item--right .timeline-time {
     grid-column: 2;
     grid-row: 1;
     justify-self: start;
     text-align: left;
+    margin-top: 0;
   }
   .timeline-body,
-  .timeline-item:nth-child(odd) .timeline-body {
+  .timeline-item--left .timeline-body,
+  .timeline-item--right .timeline-body {
     grid-column: 2;
     grid-row: 2;
     justify-self: start;
