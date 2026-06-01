@@ -441,6 +441,26 @@ p:last-child { margin-bottom: 0; }
   color: var(--text-body);
 }
 
+.welcome-signoff,
+.welcome-signature {
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+  line-height: 1.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.welcome-signoff {
+  margin-top: 1.75rem;
+  color: var(--text-body);
+}
+
+.welcome-signature {
+  margin-top: 0.35rem;
+  font-style: italic;
+  color: var(--pomegranate);
+}
+
 .welcome-script {
   font-family: var(--font-script);
   font-size: clamp(2.2rem, 6vw, 3.5rem);
