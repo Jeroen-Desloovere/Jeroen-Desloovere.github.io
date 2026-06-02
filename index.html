@@ -276,7 +276,7 @@
           </svg>
           <span class="ornament-line" style="background:rgba(245,230,216,0.3)"></span>
         </div>
-        <p style="color:rgba(245,230,216,0.75); font-style:italic; margin-bottom: 0.5rem;">Please respond by 1st June 2026</p>
+        <p style="color:rgba(245,230,216,0.75); font-style:italic; margin-bottom: 0.5rem;">Please respond by August 5th 2026</p>
       </div>
 
       <form class="rsvp-form" id="rsvp-form" novalidate>
@@ -284,7 +284,7 @@
         <div class="form-row fade-in">
           <div class="form-group">
             <label for="first-name">First Name</label>
-            <input class="form-control" type="text" id="first-name" name="first_name" placeholder="Nensi" required>
+            <input class="form-control" type="text" id="first-name" name="first_name" placeholder="Lando" required>
           </div>
           <div class="form-group">
             <label for="last-name">Last Name</label>
@@ -315,10 +315,11 @@
           <label for="guests">Number of Guests (including yourself)</label>
           <select class="form-control" id="guests" name="guests">
             <option value="1">1 — Just me</option>
-            <option value="2">2 — Myself & a partner</option>
+            <option value="2">2 — Myself plus one</option>
             <option value="3">3 guests</option>
             <option value="4">4 guests</option>
           </select>
+          <div class="conditional-fields" id="additional-guests" aria-live="polite"></div>
         </div>
 
         <div class="form-group fade-in">
@@ -333,18 +334,18 @@
               Vegan
             </label>
             <label class="checkbox-label">
-              <input type="checkbox" name="diet" value="gluten_free">
-              Gluten-free
-            </label>
-            <label class="checkbox-label">
               <input type="checkbox" name="diet" value="other">
               Other allergy / requirement
             </label>
           </div>
+          <div class="conditional-fields" id="diet-other-details" hidden>
+            <label for="diet-other">Please specify</label>
+            <input class="form-control" type="text" id="diet-other" name="diet_other" placeholder="Tell us what we should know">
+          </div>
         </div>
 
         <div class="form-group fade-in">
-          <label for="transport">Would you like shuttle transport?</label>
+          <label for="transport">Would you like assistance with transportation?</label>
           <select class="form-control" id="transport" name="transport">
             <option value="">Please select…</option>
             <option value="yes_both">Yes — both ways</option>
@@ -355,17 +356,22 @@
         </div>
 
         <div class="form-group fade-in">
-          <label for="accommodation">Your accommodation near Durrës / Tirana (optional)</label>
-          <input class="form-control" type="text" id="accommodation" name="accommodation" placeholder="Hotel name or address">
+          <label for="accommodation">If Yes, please share the address of your accommodation</label>
+          <input class="form-control" type="text" id="accommodation" name="accommodation" placeholder="Address or hotel name">
         </div>
 
         <div class="form-group fade-in">
-          <label for="message">A note for us (optional)</label>
-          <textarea class="form-control" id="message" name="message" placeholder="A song request, a memory, or simply hello…"></textarea>
+          <label for="song-request">A song you want to dance to (optional)</label>
+          <input class="form-control" type="text" id="song-request" name="song_request" placeholder="Artist and song title">
+        </div>
+
+        <div class="form-group fade-in">
+          <label for="message">Anything else you would like to share? (optional)</label>
+          <textarea class="form-control" id="message" name="message" placeholder="A memory, a travel note, or simply hello…"></textarea>
         </div>
 
         <div class="form-submit fade-in">
-          <button type="submit" class="btn btn--primary" style="min-width: 220px;">Send My RSVP</button>
+          <button type="submit" class="btn btn--primary rsvp-submit-button" style="min-width: 220px;">Send My RSVP</button>
         </div>
 
       </form>

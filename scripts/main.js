@@ -100,8 +100,70 @@ document.addEventListener('DOMContentLoaded', () => {
   /* --- RSVP Form --- */
   const rsvpForm = document.getElementById('rsvp-form');
   if (rsvpForm) {
+    const guestSelect = document.getElementById('guests');
+    const additionalGuests = document.getElementById('additional-guests');
+    const otherDietCheckbox = rsvpForm.querySelector('input[name="diet"][value="other"]');
+    const otherDietDetails = document.getElementById('diet-other-details');
+    const otherDietInput = document.getElementById('diet-other');
+
+    function renderAdditionalGuests() {
+      if (!guestSelect || !additionalGuests) return;
+
+      const totalGuests = Number(guestSelect.value) || 1;
+      const additionalCount = Math.max(totalGuests - 1, 0);
+      additionalGuests.innerHTML = '';
+
+      for (let index = 1; index <= additionalCount; index += 1) {
+        const field = document.createElement('div');
+        field.className = 'conditional-field';
+
+        const label = document.createElement('label');
+        label.setAttribute('for', `additional-guest-${index}`);
+        label.textContent = `Additional Guest ${index} Name`;
+
+        const input = document.createElement('input');
+        input.className = 'form-control';
+        input.type = 'text';
+        input.id = `additional-guest-${index}`;
+        input.name = `additional_guest_${index}`;
+        input.placeholder = `Guest ${index} full name`;
+        input.required = true;
+
+        field.append(label, input);
+        additionalGuests.appendChild(field);
+      }
+    }
+
+    function toggleOtherDietDetails() {
+      if (!otherDietCheckbox || !otherDietDetails || !otherDietInput) return;
+
+      const shouldShow = otherDietCheckbox.checked;
+      otherDietDetails.hidden = !shouldShow;
+      otherDietInput.required = shouldShow;
+
+      if (!shouldShow) {
+        otherDietInput.value = '';
+      }
+    }
+
+    if (guestSelect) {
+      guestSelect.addEventListener('change', renderAdditionalGuests);
+      renderAdditionalGuests();
+    }
+
+    if (otherDietCheckbox) {
+      otherDietCheckbox.addEventListener('change', toggleOtherDietDetails);
+      toggleOtherDietDetails();
+    }
+
     rsvpForm.addEventListener('submit', e => {
       e.preventDefault();
+
+      if (!rsvpForm.checkValidity()) {
+        rsvpForm.reportValidity();
+        return;
+      }
+
       const btn = rsvpForm.querySelector('.btn--primary');
       btn.textContent = 'Sending…';
       btn.disabled = true;
