@@ -55,6 +55,10 @@ body {
 
 img { max-width: 100%; display: block; }
 
+[hidden] {
+  display: none !important;
+}
+
 a {
   color: var(--pomegranate);
   text-decoration: none;
@@ -140,6 +144,18 @@ p:last-child { margin-bottom: 0; }
 }
 
 .centered { text-align: center; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 
 /* ============================================================
    NAVIGATION
