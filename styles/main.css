@@ -55,6 +55,10 @@ body {
 
 img { max-width: 100%; display: block; }
 
+[hidden] {
+  display: none !important;
+}
+
 a {
   color: var(--pomegranate);
   text-decoration: none;
