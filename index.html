@@ -279,7 +279,11 @@
         <p style="color:rgba(245,230,216,0.75); font-style:italic; margin-bottom: 0.5rem;">Please respond by August 5th 2026</p>
       </div>
 
-      <form class="rsvp-form" id="rsvp-form" novalidate>
+      <form class="rsvp-form" id="rsvp-form" name="rsvp" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="rsvp">
+        <p class="visually-hidden" aria-hidden="true">
+          <label>Do not fill this out if you are human: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+        </p>
 
         <div class="form-row fade-in">
           <div class="form-group">
@@ -318,8 +322,31 @@
             <option value="2">2 — Myself plus one</option>
             <option value="3">3 guests</option>
             <option value="4">4 guests</option>
+            <option value="5">5 guests</option>
+            <option value="6">6 guests</option>
           </select>
-          <div class="conditional-fields" id="additional-guests" aria-live="polite"></div>
+          <div class="conditional-fields" id="additional-guests" aria-live="polite">
+            <div class="conditional-field" data-additional-guest="1" hidden>
+              <label for="additional-guest-1">Additional Guest 1 Name</label>
+              <input class="form-control" type="text" id="additional-guest-1" name="additional_guest_1" placeholder="Guest 1 full name" disabled>
+            </div>
+            <div class="conditional-field" data-additional-guest="2" hidden>
+              <label for="additional-guest-2">Additional Guest 2 Name</label>
+              <input class="form-control" type="text" id="additional-guest-2" name="additional_guest_2" placeholder="Guest 2 full name" disabled>
+            </div>
+            <div class="conditional-field" data-additional-guest="3" hidden>
+              <label for="additional-guest-3">Additional Guest 3 Name</label>
+              <input class="form-control" type="text" id="additional-guest-3" name="additional_guest_3" placeholder="Guest 3 full name" disabled>
+            </div>
+            <div class="conditional-field" data-additional-guest="4" hidden>
+              <label for="additional-guest-4">Additional Guest 4 Name</label>
+              <input class="form-control" type="text" id="additional-guest-4" name="additional_guest_4" placeholder="Guest 4 full name" disabled>
+            </div>
+            <div class="conditional-field" data-additional-guest="5" hidden>
+              <label for="additional-guest-5">Additional Guest 5 Name</label>
+              <input class="form-control" type="text" id="additional-guest-5" name="additional_guest_5" placeholder="Guest 5 full name" disabled>
+            </div>
+          </div>
         </div>
 
         <div class="form-group fade-in">
@@ -340,7 +367,7 @@
           </div>
           <div class="conditional-fields" id="diet-other-details" hidden>
             <label for="diet-other">Please specify</label>
-            <input class="form-control" type="text" id="diet-other" name="diet_other" placeholder="Tell us what we should know">
+            <input class="form-control" type="text" id="diet-other" name="diet_other" placeholder="Tell us what we should know" disabled>
           </div>
         </div>
 
