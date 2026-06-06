@@ -102,6 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (rsvpForm) {
     const guestSelect = document.getElementById('guests');
     const additionalGuests = document.getElementById('additional-guests');
+    const additionalGuestFields = additionalGuests
+      ? Array.from(additionalGuests.querySelectorAll('[data-additional-guest]'))
+      : [];
     const otherDietCheckbox = rsvpForm.querySelector('input[name="diet"][value="other"]');
     const otherDietDetails = document.getElementById('diet-other-details');
     const otherDietInput = document.getElementById('diet-other');
@@ -111,27 +114,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const totalGuests = Number(guestSelect.value) || 1;
       const additionalCount = Math.max(totalGuests - 1, 0);
-      additionalGuests.innerHTML = '';
 
-      for (let index = 1; index <= additionalCount; index += 1) {
-        const field = document.createElement('div');
-        field.className = 'conditional-field';
+      additionalGuestFields.forEach((field, index) => {
+        const shouldShow = index < additionalCount;
+        const input = field.querySelector('input');
 
-        const label = document.createElement('label');
-        label.setAttribute('for', `additional-guest-${index}`);
-        label.textContent = `Additional Guest ${index} Name`;
+        field.hidden = !shouldShow;
 
-        const input = document.createElement('input');
-        input.className = 'form-control';
-        input.type = 'text';
-        input.id = `additional-guest-${index}`;
-        input.name = `additional_guest_${index}`;
-        input.placeholder = `Guest ${index} full name`;
-        input.required = true;
+        if (input) {
+          input.disabled = !shouldShow;
+          input.required = shouldShow;
 
-        field.append(label, input);
-        additionalGuests.appendChild(field);
-      }
+          if (!shouldShow) {
+            input.value = '';
+          }
+        }
+      });
     }
 
     function toggleOtherDietDetails() {
@@ -139,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const shouldShow = otherDietCheckbox.checked;
       otherDietDetails.hidden = !shouldShow;
+      otherDietInput.disabled = !shouldShow;
       otherDietInput.required = shouldShow;
 
       if (!shouldShow) {
@@ -165,18 +164,45 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const btn = rsvpForm.querySelector('.btn--primary');
-      btn.textContent = 'Sending…';
+      btn.textContent = 'Sending...';
       btn.disabled = true;
 
-      // Simulate async send
-      setTimeout(() => {
+      const formData = new FormData(rsvpForm);
+      const body = new URLSearchParams(formData).toString();
+
+      fetch(rsvpForm.getAttribute('action') || '/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Form submission failed');
+        }
+
         rsvpForm.style.display = 'none';
         const success = document.getElementById('rsvp-success');
+        const successMessage = document.getElementById('rsvp-success-message');
+        const attendance = formData.get('attendance');
+
+        if (successMessage) {
+          successMessage.textContent = attendance === 'no'
+            ? "We've received your RSVP and are sorry you cannot make it. Thank you for letting us know."
+            : "We've received your RSVP and cannot wait to celebrate with you. See you in September!";
+        }
+
         if (success) {
           success.style.display = 'block';
           success.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-      }, 1200);
+      })
+      .catch(() => {
+        btn.textContent = 'Send My RSVP';
+        btn.disabled = false;
+        alert('Sorry, something went wrong while sending your RSVP. Please try again.');
+      });
+
+      return;
     });
   }
 
