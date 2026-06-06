@@ -182,6 +182,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         rsvpForm.style.display = 'none';
         const success = document.getElementById('rsvp-success');
+        const successMessage = document.getElementById('rsvp-success-message');
+        const attendance = formData.get('attendance');
+
+        if (successMessage) {
+          successMessage.textContent = attendance === 'no'
+            ? "We've received your RSVP and are sorry you cannot make it. Thank you for letting us know."
+            : "We've received your RSVP and cannot wait to celebrate with you. See you in September!";
+        }
+
         if (success) {
           success.style.display = 'block';
           success.scrollIntoView({ behavior: 'smooth', block: 'center' });
