@@ -34,7 +34,7 @@
       justify-content: center;
       gap: 0.6rem;
       max-width: 760px;
-      margin: 0 auto 4rem;
+      margin: 0 auto 3rem;
     }
 
     .travel-anchors a {
@@ -91,6 +91,11 @@
 
     .travel-grid--three {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .travel-grid--centered {
+      grid-template-columns: repeat(2, minmax(260px, 360px));
+      justify-content: center;
     }
 
     .travel-card {
@@ -191,7 +196,8 @@
 
     @media (max-width: 820px) {
       .travel-grid,
-      .travel-grid--three {
+      .travel-grid--three,
+      .travel-grid--centered {
         grid-template-columns: 1fr;
       }
     }
@@ -204,7 +210,7 @@
       .travel-anchors {
         align-items: stretch;
         flex-direction: column;
-        margin-bottom: 2.8rem;
+        margin-bottom: 2.2rem;
       }
 
       .travel-anchors a {
@@ -279,7 +285,7 @@
         <p>Tirana International Airport is the nearest airport. The venue is about 30 minutes from the airport.<br></p>
       </div>
 
-      <div class="travel-grid travel-grid--three">
+      <div class="travel-grid travel-grid--centered">
         <article class="travel-card">
           <h3>Airport</h3>
           <p>For almost everyone travelling to Albania for the wedding, flying to Tirana International Airport is the easiest option.</p>
